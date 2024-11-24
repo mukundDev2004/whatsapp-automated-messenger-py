@@ -146,12 +146,12 @@ var need;
     
     <p>Input customer number</p>
     <div>
-        <img src="assets/img/left.jpg" alt="" style="
+        <img src="assets/img/left.jpg" id="left" alt="" style="
         height: 32px;
         position: absolute;
         " onclick="right()">
         <input type="number" id="need" min="0" value=0>
-        <img src="assets/img/right.jpg" alt="" style="
+        <img src="assets/img/right.jpg" id="right" alt="" style="
         height: 32px;
         position: absolute;
          " onclick="left()">
@@ -259,7 +259,7 @@ var need;
 
                     // Add aging details to the message
                     for (let i = 0; i < agingRanges.length; i++) {
-                        if (customerData[agingRanges[i].field]) {
+                        if (customerData[agingRanges[i].field] > 0) {
                             message += `${agingRanges[i].name} - Rs. ${customerData[agingRanges[i].field]}\n`;
                         }
                     }
@@ -301,6 +301,52 @@ var need;
                 copyText.setSelectionRange(0, 99999); /* For mobile devices */
                 document.execCommand("copy");
         }
+        document.addEventListener('keyup', (event) => {
+            // Check if the pressed key is the "Up Arrow" key (key code 38)
+            if (event.key === "ArrowUp") {
+                // Get the content of the element with id "length1"
+                const content = document.getElementById('length1').textContent;
+
+                // Use the Clipboard API to copy the content to the clipboard
+                navigator.clipboard.writeText(content)
+                    .then(() => {
+                        console.log('Content copied to clipboard:', content);
+                    })
+                    .catch((err) => {
+                        console.error('Failed to copy content:', err);
+                    });
+            }
+            // Check if the pressed key is the "Right Arrow" (key code 39)
+            if (event.key === "ArrowRight") {
+                // Simulate a click on the button with id "right"
+                const rightButton = document.getElementById('right');
+                if (rightButton) {
+                    rightButton.click();
+                }
+            }
+
+            // Check if the pressed key is the "Left Arrow" (key code 37)
+            if (event.key === "ArrowLeft") {
+                // Simulate a click on the button with id "left"
+                const leftButton = document.getElementById('left');
+                if (leftButton) {
+                    leftButton.click();
+                }
+            }
+            if (event.key === 'ArrowDown') {
+                var copyButton = document.getElementById('copyButton');
+                if (copyButton) {
+                    copyButton.click(); // Simulate button click
+                }
+            }
+        });
+        // Function to detect Space key press and click the button
+        document.addEventListener('keydown', function(event) {
+            // Check if the pressed key is the Space key
+            
+        });
+
+
     </script>
 <textarea id="length1" onclick="copyme()"> </textarea>
 <p id="phone"> </p>
